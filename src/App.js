@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Name from "./Component/Name";
+import AddTask from "./Component/AddTask";
 
-function App() {
+const App = () => {
+  const [name] = useState("Dani");
+
+  const [newTask, setNewTask] = useState("");
+
+  // To change state -
+  // User interaction
+  // Side effect
+
+  const onTextChange = event => {
+    setNewTask(event.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Name name={name} />
+      <AddTask value={newTask} changeHandler={onTextChange} />
     </div>
   );
-}
+};
 
 export default App;
