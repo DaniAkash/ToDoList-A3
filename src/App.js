@@ -39,7 +39,18 @@ const App = () => {
   };
 
   const toggleTask = (taskIndex) => {
-    console.log(taskIndex);
+    setTasks(
+      tasks.map((task, index) => {
+        if (taskIndex === index) {
+          return {
+            ...task,
+            isComplete: !task.isComplete,
+          };
+        }
+
+        return task;
+      })
+    );
   };
 
   return (
