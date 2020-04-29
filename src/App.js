@@ -47,11 +47,12 @@ const App = () => {
             isComplete: !task.isComplete,
           };
         }
-
         return task;
       })
     );
   };
+
+  const completedTasks = tasks.filter((each) => each.isComplete);
 
   return (
     <div>
@@ -71,6 +72,9 @@ const App = () => {
           );
         })}
       </ul>
+      <p>{`Total Tasks: ${tasks.length} Completed Tasks: ${
+        completedTasks.length
+      } Pending Tasks: ${tasks.length - completedTasks.length}`}</p>
     </div>
   );
 };
