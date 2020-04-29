@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Name from "./Component/Name";
 import AddTask from "./Component/AddTask";
 import ListItem from "./Component/ListItem";
@@ -11,6 +11,8 @@ import ListItem from "./Component/ListItem";
  */
 
 const App = () => {
+  const inputRef = useRef(null);
+
   const [name] = useState("Dani");
 
   const [newTask, setNewTask] = useState("");
@@ -70,6 +72,10 @@ const App = () => {
 
     console.log("Did Mount & Did Update");
 
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+
     return () => {
       console.log("Will Unmount");
     };
@@ -78,7 +84,12 @@ const App = () => {
   return (
     <div>
       <Name name={name} />
-      <AddTask value={newTask} changeHandler={onTextChange} addTask={addTask} />
+      <AddTask
+        reference={inputRef}
+        value={newTask}
+        changeHandler={onTextChange}
+        addTask={addTask}
+      />
       <ul>
         {tasks.map((task, taskIndex) => {
           const onTaskClick = () => toggleTask(taskIndex);
