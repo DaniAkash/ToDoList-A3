@@ -26,10 +26,21 @@ const App = () => {
     setNewTask(event.target.value);
   };
 
+  const addTask = () => {
+    setTasks([
+      ...tasks,
+      {
+        text: newTask,
+        isComplete: false,
+      },
+    ]);
+    setNewTask("");
+  };
+
   return (
     <div>
       <Name name={name} />
-      <AddTask value={newTask} changeHandler={onTextChange} />
+      <AddTask value={newTask} changeHandler={onTextChange} addTask={addTask} />
       <ul>
         {tasks.map((task, taskIndex) => {
           return <li key={taskIndex}>{task.text}</li>;
