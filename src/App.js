@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Name from "./Component/Name";
 import AddTask from "./Component/AddTask";
 import ListItem from "./Component/ListItem";
+
+/**
+ * Lifecycle methods
+ * - Component Did Mount
+ * - Component Did update
+ * - Component will unmount
+ */
 
 const App = () => {
   const [name] = useState("Dani");
 
   const [newTask, setNewTask] = useState("");
 
-  const [tasks, setTasks] = useState([
-    {
-      text: "Buy Grocery",
-      isComplete: false,
-    },
-    {
-      text: "Car wash",
-      isComplete: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState(
+    localStorage.getItem("taskList")
+      ? JSON.parse(localStorage.getItem("taskList"))
+      : [
+          {
+            text: "Buy Grocery",
+            isComplete: false,
+          },
+          {
+            text: "Car wash",
+            isComplete: false,
+          },
+        ]
+  );
 
   // To change state -
   // User interaction
@@ -53,6 +64,16 @@ const App = () => {
   };
 
   const completedTasks = tasks.filter((each) => each.isComplete);
+
+  useEffect(() => {
+    localStorage.setItem("taskList", JSON.stringify(tasks));
+
+    console.log("Did Mount & Did Update");
+
+    return () => {
+      console.log("Will Unmount");
+    };
+  });
 
   return (
     <div>
