@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Name from "./Component/Name";
 import AddTask from "./Component/AddTask";
+import ListItem from "./Component/ListItem";
 
 const App = () => {
   const [name] = useState("Dani");
@@ -37,13 +38,26 @@ const App = () => {
     setNewTask("");
   };
 
+  const toggleTask = (taskIndex) => {
+    console.log(taskIndex);
+  };
+
   return (
     <div>
       <Name name={name} />
       <AddTask value={newTask} changeHandler={onTextChange} addTask={addTask} />
       <ul>
         {tasks.map((task, taskIndex) => {
-          return <li key={taskIndex}>{task.text}</li>;
+          const onTaskClick = () => toggleTask(taskIndex);
+
+          return (
+            <ListItem
+              key={taskIndex}
+              text={task.text}
+              isCompleted={task.isComplete}
+              onClickCheckbox={onTaskClick}
+            />
+          );
         })}
       </ul>
     </div>
