@@ -7,11 +7,22 @@ const App = () => {
 
   const [newTask, setNewTask] = useState("");
 
+  const [tasks, setTasks] = useState([
+    {
+      text: "Buy Grocery",
+      isComplete: false,
+    },
+    {
+      text: "Car wash",
+      isComplete: false,
+    },
+  ]);
+
   // To change state -
   // User interaction
   // Side effect
 
-  const onTextChange = event => {
+  const onTextChange = (event) => {
     setNewTask(event.target.value);
   };
 
@@ -19,6 +30,11 @@ const App = () => {
     <div>
       <Name name={name} />
       <AddTask value={newTask} changeHandler={onTextChange} />
+      <ul>
+        {tasks.map((task, taskIndex) => {
+          return <li key={taskIndex}>{task.text}</li>;
+        })}
+      </ul>
     </div>
   );
 };
